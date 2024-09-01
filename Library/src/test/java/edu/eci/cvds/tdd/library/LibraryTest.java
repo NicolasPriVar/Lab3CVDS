@@ -19,6 +19,8 @@ public class LibraryTest{
         library = new Library();
     }
 
+    //Pruebas para Book
+
     @Test
     public void testAddBook(){
         String tittle1 = "Cien años de soledad";
@@ -64,6 +66,18 @@ public class LibraryTest{
         library.addBook(book1);
 
         assertTrue(library.addBook(book2));
+    }
+
+    //Pruebas para User
+
+    @Test
+    public void testAddUser(){
+        String name = "Nicolas Prieto";
+        String id = "2108";
+
+        User user = new User(id, name);
+        
+        assertTrue(library.addUser(user)); // Este debe pasar, libro nuevo agregado.
     }
 
 }
