@@ -20,13 +20,32 @@ public class LibraryTest{
     }
 
     @Test
-
     public void testAddBook(){
-        String tittle = "Cien años de soledad";
-        String author = "Gabriel Garcia Marquez";
-        String isbn = "8950";
+        String tittle1 = "Cien años de soledad";
+        String author1 = "Gabriel Garcia Marquez";
+        String isbn1 = "8950";
+
+        Book book1 = new Book(tittle1, author1, isbn1);
         
-        Book book = new Book(tittle, author,isbn);
-        assertTrue(library.addBook(book));
+        assertTrue(library.addBook(book1)); // Este debe pasar, libro nuevo agregado.
     }
+
+    @Test
+    public void testNotAddBookRepeated(){
+        String tittle1 = "Cien años de soledad";
+        String author1 = "Gabriel Garcia Marquez";
+        String isbn1 = "8950";
+
+        String tittle2 = "El resplandor";
+        String author2 = "Stephen King";
+        String isbn2 = "8950"; // Mismo ISBN que el primer libro.
+        
+        Book book1 = new Book(tittle1, author1, isbn1);
+        Book book2 = new Book(tittle2, author2, isbn2);
+
+        library.addBook(book1);
+
+        assertFalse(library.addBook(book2));
+    }
+
 }
