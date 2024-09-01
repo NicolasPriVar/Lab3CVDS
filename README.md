@@ -17,3 +17,6 @@ Ahora se  modifica el método para que esa prueba pase de tal manera que no se p
 
 Ahora se hizo la prueba para poder crear más de un libro sin problema con diferente isbn.
 ![creación de más de un libro con diferente isbn](image-4.png)
+
+Ahora se creó la prueba para añadir los usuarios al arreglo.
+![Añadir usuario](image-5.png)
