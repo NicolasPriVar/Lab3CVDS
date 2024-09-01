@@ -15,3 +15,5 @@ Se creó la prueba de crear agregar dos libros con el mismo isbn y no pasó.
 Ahora se  modifica el método para que esa prueba pase de tal manera que no se puedan crear dos libros con el mismo isbn.
 ![modificación de crear dos libros con mismo código](image-3.png)
 
+Ahora se hizo la prueba para poder crear más de un libro sin problema con diferente isbn.
+![creación de más de un libro con diferente isbn](image-4.png)

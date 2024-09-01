@@ -48,4 +48,22 @@ public class LibraryTest{
         assertFalse(library.addBook(book2));
     }
 
+    @Test
+    public void testAddTwoBook(){
+        String tittle1 = "Cien años de soledad";
+        String author1 = "Gabriel Garcia Marquez";
+        String isbn1 = "8950";
+
+        String tittle2 = "El resplandor";
+        String author2 = "Stephen King";
+        String isbn2 = "1234";
+        
+        Book book1 = new Book(tittle1, author1, isbn1);
+        Book book2 = new Book(tittle2, author2, isbn2);
+
+        library.addBook(book1);
+
+        assertTrue(library.addBook(book2));
+    }
+
 }
