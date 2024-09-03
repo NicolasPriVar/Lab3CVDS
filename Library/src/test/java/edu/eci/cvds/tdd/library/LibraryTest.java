@@ -77,7 +77,8 @@ public class LibraryTest{
 
         User user = new User(id, name);
         
-        assertTrue(library.addUser(user)); // Este debe pasar, libro nuevo agregado.
+        assertTrue(library.addUser(user)); // Este debe pasar, usuario nuevo agregado.
     }
 
+    //Prebas para Loan
 }

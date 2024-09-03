@@ -20,3 +20,6 @@ Ahora se hizo la prueba para poder crear más de un libro sin problema con difer
 
 Ahora se creó la prueba para añadir los usuarios al arreglo.
 ![Añadir usuario](image-5.png)
+
+Se agregó en el pom el código dado para crear el archivo que nos da la cobertura total del programa.
+![Jacoco](image-6.png)

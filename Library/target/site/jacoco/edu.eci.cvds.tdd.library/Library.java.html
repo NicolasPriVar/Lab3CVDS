@@ -1,4 +1,4 @@
-package edu.eci.cvds.tdd.library;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Library.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Library</a> &gt; <a href="index.source.html" class="el_package">edu.eci.cvds.tdd.library</a> &gt; <span class="el_source">Library.java</span></div><h1>Library.java</h1><pre class="source lang-java linenums">package edu.eci.cvds.tdd.library;
 
 import edu.eci.cvds.tdd.library.book.Book;
 import edu.eci.cvds.tdd.library.loan.Loan;
@@ -14,15 +14,15 @@ import java.util.Map;
  */
 public class Library {
 
-    private final List<User> users;
-    private final Map<Book, Integer> books;
-    private final List<Loan> loans;
+    private final List&lt;User&gt; users;
+    private final Map&lt;Book, Integer&gt; books;
+    private final List&lt;Loan&gt; loans;
 
-    public Library() {
-        users = new ArrayList<>();
-        books = new HashMap<>();
-        loans = new ArrayList<>();
-    }
+<span class="fc" id="L21">    public Library() {</span>
+<span class="fc" id="L22">        users = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L23">        books = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L24">        loans = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L25">    }</span>
 
     /**
      * Adds a new {@link edu.eci.cvds.tdd.library.book.Book} into the system, the book is store in a Map that contains
@@ -35,21 +35,21 @@ public class Library {
      * @return true if the book was stored false otherwise.
      */
     public boolean addBook(Book book) {
-        if (book == null) {
-        return false;
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (book == null) {</span>
+<span class="nc" id="L39">        return false;</span>
         }
 
         // Itera sobre el HashMap para verificar si ya existe un libro con el mismo ISBN
-        for (Book existingBook : books.keySet()) {
-            if (existingBook.getIsbn().equals(book.getIsbn())) {
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        for (Book existingBook : books.keySet()) {</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">            if (existingBook.getIsbn().equals(book.getIsbn())) {</span>
                 // Si existe un libro con el mismo ISBN, devuelve false
-                return false;
+<span class="fc" id="L46">                return false;</span>
             }
-        }
+<span class="fc" id="L48">        }</span>
 
         // Si no existe un libro con el mismo ISBN, lo añade al HashMap con una cantidad de 1
-        books.put(book, 1);
-        return true;
+<span class="fc" id="L51">        books.put(book, 1);</span>
+<span class="fc" id="L52">        return true;</span>
     }
 
     /**
@@ -67,27 +67,27 @@ public class Library {
      */
     public Loan loanABook(String userId, String isbn) {
         // Verificar si el libro está en el HashMap de libros
-        Book bookToLoan = null;
-        for (Book book : books.keySet()) {
-            if (book.getIsbn().equals(isbn)) {
-                bookToLoan = book;
-                break;
+<span class="nc" id="L70">        Book bookToLoan = null;</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (Book book : books.keySet()) {</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (book.getIsbn().equals(isbn)) {</span>
+<span class="nc" id="L73">                bookToLoan = book;</span>
+<span class="nc" id="L74">                break;</span>
             }
-        }
+<span class="nc" id="L76">        }</span>
 /*
-        if (bookToLoan == null || books.get(bookToLoan) == null || books.get(bookToLoan) <= 0) {
+        if (bookToLoan == null || books.get(bookToLoan) == null || books.get(bookToLoan) &lt;= 0) {
             // El libro no está en el HashMap o no hay copias disponibles
             return null;
         }
 */
         // Verificar si el usuario está en la lista de usuarios
-        User user = null;
-        for (User u : users) {
-            if (u.getId().equals(userId)) {
-                user = u;
-                break;
+<span class="nc" id="L84">        User user = null;</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        for (User u : users) {</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">            if (u.getId().equals(userId)) {</span>
+<span class="nc" id="L87">                user = u;</span>
+<span class="nc" id="L88">                break;</span>
             }
-        }
+<span class="nc" id="L90">        }</span>
 /*
         if (user == null) {
             // El usuario no está en la lista de usuarios
@@ -96,7 +96,7 @@ public class Library {
 
         // Verificar si el usuario ya tiene un préstamo activo para este libro
         for (Loan loan : loans) {
-            if (loan.getUser().equals(user) && loan.getBook().equals(bookToLoan) && loan.getStatus() == LoanStatus.ACTIVE) {
+            if (loan.getUser().equals(user) &amp;&amp; loan.getBook().equals(bookToLoan) &amp;&amp; loan.getStatus() == LoanStatus.ACTIVE) {
                 // El usuario ya tiene un préstamo activo para este libro
                 return null;
             }
@@ -115,7 +115,7 @@ public class Library {
         // Añadir el préstamo a la lista de préstamos
         loans.add(newLoan);*/
 
-        return null;
+<span class="nc" id="L118">        return null;</span>
     }
 
     /**
@@ -129,11 +129,12 @@ public class Library {
      */
     public Loan returnLoan(Loan loan) {
         //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-        return null;
+<span class="nc" id="L132">        return null;</span>
     }
 
     public boolean addUser(User user) {
-        return users.add(user);
+<span class="fc" id="L136">        return users.add(user);</span>
     }
 
 }
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
