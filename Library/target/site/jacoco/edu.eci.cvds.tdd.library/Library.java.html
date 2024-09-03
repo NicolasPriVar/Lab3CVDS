@@ -3,11 +3,13 @@
 import edu.eci.cvds.tdd.library.book.Book;
 import edu.eci.cvds.tdd.library.loan.Loan;
 import edu.eci.cvds.tdd.library.user.User;
+import edu.eci.cvds.tdd.library.loan.LoanStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 /**
  * Library responsible for manage the loans and the users.
@@ -18,11 +20,11 @@ public class Library {
     private final Map&lt;Book, Integer&gt; books;
     private final List&lt;Loan&gt; loans;
 
-<span class="fc" id="L21">    public Library() {</span>
-<span class="fc" id="L22">        users = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L23">        books = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L24">        loans = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L25">    }</span>
+<span class="fc" id="L23">    public Library() {</span>
+<span class="fc" id="L24">        users = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L25">        books = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L26">        loans = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L27">    }</span>
 
     /**
      * Adds a new {@link edu.eci.cvds.tdd.library.book.Book} into the system, the book is store in a Map that contains
@@ -35,21 +37,21 @@ public class Library {
      * @return true if the book was stored false otherwise.
      */
     public boolean addBook(Book book) {
-<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (book == null) {</span>
-<span class="nc" id="L39">        return false;</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (book == null) {</span>
+<span class="nc" id="L41">        return false;</span>
         }
 
         // Itera sobre el HashMap para verificar si ya existe un libro con el mismo ISBN
-<span class="fc bfc" id="L43" title="All 2 branches covered.">        for (Book existingBook : books.keySet()) {</span>
-<span class="fc bfc" id="L44" title="All 2 branches covered.">            if (existingBook.getIsbn().equals(book.getIsbn())) {</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        for (Book existingBook : books.keySet()) {</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">            if (existingBook.getIsbn().equals(book.getIsbn())) {</span>
                 // Si existe un libro con el mismo ISBN, devuelve false
-<span class="fc" id="L46">                return false;</span>
+<span class="fc" id="L48">                return false;</span>
             }
-<span class="fc" id="L48">        }</span>
+<span class="fc" id="L50">        }</span>
 
         // Si no existe un libro con el mismo ISBN, lo añade al HashMap con una cantidad de 1
-<span class="fc" id="L51">        books.put(book, 1);</span>
-<span class="fc" id="L52">        return true;</span>
+<span class="fc" id="L53">        books.put(book, 1);</span>
+<span class="fc" id="L54">        return true;</span>
     }
 
     /**
@@ -66,57 +68,11 @@ public class Library {
      * @return The new created loan.
      */
     public Loan loanABook(String userId, String isbn) {
-        // Verificar si el libro está en el HashMap de libros
-<span class="nc" id="L70">        Book bookToLoan = null;</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (Book book : books.keySet()) {</span>
-<span class="nc bnc" id="L72" title="All 2 branches missed.">            if (book.getIsbn().equals(isbn)) {</span>
-<span class="nc" id="L73">                bookToLoan = book;</span>
-<span class="nc" id="L74">                break;</span>
-            }
-<span class="nc" id="L76">        }</span>
-/*
-        if (bookToLoan == null || books.get(bookToLoan) == null || books.get(bookToLoan) &lt;= 0) {
-            // El libro no está en el HashMap o no hay copias disponibles
-            return null;
-        }
-*/
-        // Verificar si el usuario está en la lista de usuarios
-<span class="nc" id="L84">        User user = null;</span>
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        for (User u : users) {</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">            if (u.getId().equals(userId)) {</span>
-<span class="nc" id="L87">                user = u;</span>
-<span class="nc" id="L88">                break;</span>
-            }
-<span class="nc" id="L90">        }</span>
-/*
-        if (user == null) {
-            // El usuario no está en la lista de usuarios
-            return null;
-        }
-
-        // Verificar si el usuario ya tiene un préstamo activo para este libro
-        for (Loan loan : loans) {
-            if (loan.getUser().equals(user) &amp;&amp; loan.getBook().equals(bookToLoan) &amp;&amp; loan.getStatus() == LoanStatus.ACTIVE) {
-                // El usuario ya tiene un préstamo activo para este libro
-                return null;
-            }
-        }
-
-        // Crear el nuevo préstamo
-        Loan newLoan = new Loan();
-        newLoan.setBook(bookToLoan);
-        newLoan.setUser(user);
-        newLoan.setLoanDate(LocalDateTime.now());
-        newLoan.setStatus(LoanStatus.ACTIVE);
-
-        // Actualizar la cantidad de libros disponibles
-        books.put(bookToLoan, books.get(bookToLoan) - 1);
-
-        // Añadir el préstamo a la lista de préstamos
-        loans.add(newLoan);*/
-
-<span class="nc" id="L118">        return null;</span>
+        // Verificar que el libro está disponible
+<span class="fc" id="L72">        return null;</span>
     }
+
+        
 
     /**
      * This method return a loan, meaning that the amount of books should be increased by 1, the status of the Loan
@@ -129,12 +85,13 @@ public class Library {
      */
     public Loan returnLoan(Loan loan) {
         //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-<span class="nc" id="L132">        return null;</span>
+<span class="nc" id="L88">        return null;</span>
     }
 
     public boolean addUser(User user) {
-<span class="fc" id="L136">        return users.add(user);</span>
+<span class="fc" id="L92">        return users.add(user);</span>
     }
+
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

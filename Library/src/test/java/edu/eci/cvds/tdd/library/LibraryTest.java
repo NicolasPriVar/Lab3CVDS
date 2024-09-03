@@ -2,6 +2,7 @@ package edu.eci.cvds.tdd.library;
 
 import org.junit.jupiter.api.BeforeEach;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -10,12 +11,15 @@ import edu.eci.cvds.tdd.library.Library;
 import edu.eci.cvds.tdd.library.book.Book;
 import edu.eci.cvds.tdd.library.loan.Loan;
 import edu.eci.cvds.tdd.library.user.User;
+import edu.eci.cvds.tdd.library.loan.LoanStatus;
+import java.time.LocalDateTime;
+
 
 public class LibraryTest{
     private Library library;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         library = new Library();
     }
 
@@ -69,6 +73,7 @@ public class LibraryTest{
     }
 
     //Pruebas para User
+    
 
     @Test
     public void testAddUser(){
@@ -81,4 +86,12 @@ public class LibraryTest{
     }
 
     //Prebas para Loan
+
+    @Test 
+    public void testLoanABook(){
+        assertNull(library.loanABook(null,null));
+    }
+
+
+    
 }

@@ -3,11 +3,13 @@ package edu.eci.cvds.tdd.library;
 import edu.eci.cvds.tdd.library.book.Book;
 import edu.eci.cvds.tdd.library.loan.Loan;
 import edu.eci.cvds.tdd.library.user.User;
+import edu.eci.cvds.tdd.library.loan.LoanStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
 
 /**
  * Library responsible for manage the loans and the users.
@@ -66,57 +68,11 @@ public class Library {
      * @return The new created loan.
      */
     public Loan loanABook(String userId, String isbn) {
-        // Verificar si el libro está en el HashMap de libros
-        Book bookToLoan = null;
-        for (Book book : books.keySet()) {
-            if (book.getIsbn().equals(isbn)) {
-                bookToLoan = book;
-                break;
-            }
-        }
-/*
-        if (bookToLoan == null || books.get(bookToLoan) == null || books.get(bookToLoan) <= 0) {
-            // El libro no está en el HashMap o no hay copias disponibles
-            return null;
-        }
-*/
-        // Verificar si el usuario está en la lista de usuarios
-        User user = null;
-        for (User u : users) {
-            if (u.getId().equals(userId)) {
-                user = u;
-                break;
-            }
-        }
-/*
-        if (user == null) {
-            // El usuario no está en la lista de usuarios
-            return null;
-        }
-
-        // Verificar si el usuario ya tiene un préstamo activo para este libro
-        for (Loan loan : loans) {
-            if (loan.getUser().equals(user) && loan.getBook().equals(bookToLoan) && loan.getStatus() == LoanStatus.ACTIVE) {
-                // El usuario ya tiene un préstamo activo para este libro
-                return null;
-            }
-        }
-
-        // Crear el nuevo préstamo
-        Loan newLoan = new Loan();
-        newLoan.setBook(bookToLoan);
-        newLoan.setUser(user);
-        newLoan.setLoanDate(LocalDateTime.now());
-        newLoan.setStatus(LoanStatus.ACTIVE);
-
-        // Actualizar la cantidad de libros disponibles
-        books.put(bookToLoan, books.get(bookToLoan) - 1);
-
-        // Añadir el préstamo a la lista de préstamos
-        loans.add(newLoan);*/
-
+        // Verificar que el libro está disponible
         return null;
     }
+
+        
 
     /**
      * This method return a loan, meaning that the amount of books should be increased by 1, the status of the Loan
@@ -135,5 +91,6 @@ public class Library {
     public boolean addUser(User user) {
         return users.add(user);
     }
+
 
 }
