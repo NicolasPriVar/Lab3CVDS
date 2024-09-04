@@ -5,8 +5,8 @@ public class User {
     private String id;
     
 <span class="fc" id="L7">    public User(String id, String name) {</span>
-<span class="pc bpc" id="L8" title="4 of 8 branches missed.">        if (id == null || id.isEmpty() || name == null || name.isEmpty()) {</span>
-<span class="nc" id="L9">            throw new IllegalArgumentException(&quot;El ID o el nombre no puede quedar vacío.&quot;);</span>
+<span class="pc bpc" id="L8" title="3 of 8 branches missed.">        if (id == null || id.isEmpty() || name == null || name.isEmpty()) {</span>
+<span class="fc" id="L9">            throw new IllegalArgumentException(&quot;El ID o el nombre no puede quedar vacío.&quot;);</span>
         }
 <span class="fc" id="L11">        this.name = name;</span>
 <span class="fc" id="L12">        this.id = id;</span>

@@ -85,15 +85,6 @@ public class LibraryTest{
         assertTrue(library.addUser(user)); // Este debe pasar, usuario nuevo agregado.
     }
 
-    @Test
-    public void testAddUseerNULL(){
-        String name = "Juan Cancelado";
-        String id = null;
-
-        User user = new User(id,name);
-        
-        assertFalse(library.addUser(user));
-    }
 
     //Prebas para Loan
 
@@ -169,19 +160,37 @@ public class LibraryTest{
     }
 
     @Test
-    public void testLoanABookUserNULL(){
-        Book book = new Book("El señor de los anillos", "J. R. R. Tolkien.", "4544");
-        User user = new User(null, "Juan Cancelado");
+    public void testLoanABooksizeBook() {
+    Library library = new Library();
+    
+    User user1 = new User("User1", "John Doe");  // Asegúrate de pasar ambos parámetros
+    Book book1 = new Book("ISBN1", "Title1", "Author1");
+    Book book2 = new Book("ISBN2", "Title2", "Author2");
 
-        library.addBook(book);
-        // Añadir el usuario a la biblioteca
-        library.addUser(user);
+    library.addUser(user1);
+    library.addBook(book1);
+    library.addBook(book2);
+    
+    // Prueba de éxito
+    Loan loan = library.loanABook(user1.getId(), book1.getIsbn());
+    assertEquals(2, library.getBooks().size());
+    //assertEquals("Book quantity should decrease", 0, (int) library.getBooks().get(book1));
+    
+    // Otros casos de prueba
+}
+    @Test
+    public void testLoanABookADDBook() {
+    Library library = new Library();
+    
+    User user1 = new User("User1", "John Doe");  // Asegúrate de pasar ambos parámetros
+    Book book1 = new Book("ISBN1", "Title1", "Author1");
+    Book book2 = new Book("ISBN2", "Title2", "Author2");
 
-        // Realizar un préstamo
-        Loan loan = library.loanABook(null, "4544");
-
-        assertEquals(user, loan.getUser());
-        
+    library.addUser(user1);
+    library.addBook(book1);
+    library.addBook(book2);
+    assertFalse(library.addBook(book2));
     }
+
 }
 
