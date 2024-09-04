@@ -136,6 +136,11 @@ public class Library {
     public boolean addUser(User user) {
         return users.add(user);
     }
+    
+    public Map<Book, Integer> getBooks() {
+    return new HashMap<>(books);  // Retorna una copia del mapa para evitar modificaciones externas.
+    }
+
 
 
 }
