@@ -85,6 +85,16 @@ public class LibraryTest{
         assertTrue(library.addUser(user)); // Este debe pasar, usuario nuevo agregado.
     }
 
+    @Test
+    public void testAddUseerNULL(){
+        String name = "Juan Cancelado";
+        String id = null;
+
+        User user = new User(id,name);
+        
+        assertFalse(library.addUser(user));
+    }
+
     //Prebas para Loan
 
     @Test
@@ -157,4 +167,21 @@ public class LibraryTest{
 
         assertEquals(LoanStatus.ACTIVE, loan.getStatus());
     }
+
+    @Test
+    public void testLoanABookUserNULL(){
+        Book book = new Book("El señor de los anillos", "J. R. R. Tolkien.", "4544");
+        User user = new User(null, "Juan Cancelado");
+
+        library.addBook(book);
+        // Añadir el usuario a la biblioteca
+        library.addUser(user);
+
+        // Realizar un préstamo
+        Loan loan = library.loanABook(null, "4544");
+
+        assertEquals(user, loan.getUser());
+        
+    }
 }
+
