@@ -68,9 +68,54 @@ public class Library {
      * @return The new created loan.
      */
     public Loan loanABook(String userId, String isbn) {
-        // Verificar que el libro está disponible
-        return null;
+    // Verificar si el libro existe en la biblioteca
+    Book bookToLoan = null;
+    for (Book book : books.keySet()) {
+        if (book.getIsbn().equals(isbn)) {
+            bookToLoan = book;
+            break;
+        }
     }
+    if (bookToLoan == null) {
+        throw new IllegalArgumentException("Book with ISBN " + isbn + " does not exist.");
+    }
+
+    // Verificar si hay copias disponibles del libro
+    if (books.get(bookToLoan) <= 0) {
+        throw new IllegalArgumentException("No copies of book with ISBN " + isbn + " are available.");
+    }
+
+    // Verificar si el usuario existe
+    User user = null;
+    for (User u : users) {
+        if (u.getId().equals(userId)) {
+            user = u;
+            break;
+        }
+    }
+    if (user == null) {
+        throw new IllegalArgumentException("User with ID " + userId + " does not exist.");
+    }
+
+    // Verificar si el usuario ya tiene un préstamo activo para el mismo libro
+    for (Loan loan : loans) {
+        if (loan.getUser().getId().equals(userId) && loan.getBook().getIsbn().equals(isbn) &&
+            loan.getStatus() == LoanStatus.ACTIVE) {
+            throw new IllegalArgumentException("User with ID " + userId + " already has an active loan for book with ISBN " + isbn);
+        }
+    }
+
+    // Crear el nuevo préstamo
+    Loan newLoan = new Loan(user, bookToLoan, LocalDateTime.now(), LoanStatus.ACTIVE);
+    loans.add(newLoan);
+
+    // Disminuir la cantidad de libros disponibles
+    books.put(bookToLoan, books.get(bookToLoan) - 1);
+
+    return newLoan;
+}
+
+
 
         
 

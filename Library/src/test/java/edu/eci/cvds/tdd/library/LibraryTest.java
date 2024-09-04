@@ -87,11 +87,74 @@ public class LibraryTest{
 
     //Prebas para Loan
 
-    @Test 
-    public void testLoanABook(){
-        assertNull(library.loanABook(null,null));
+    @Test
+    public void testLoanABookNoNULL() {
+        
+        // Crear un libro y un usuario
+        Book book = new Book("El señor de los anillos", "J. R. R. Tolkien.", "4544");
+        User user = new User("1234", "Juan Cancelado");
+
+        // Añadir el libro a la biblioteca
+        library.addBook(book);
+        // Añadir el usuario a la biblioteca
+        library.addUser(user);
+
+        // Realizar un préstamo
+        Loan loan = library.loanABook("1234", "4544");
+
+        // Verificar que el préstamo se creó correctamente
+        assertNotNull(loan);
+        assertNotNull(loan.getLoanDate());
     }
 
+    @Test
+    public void testLoanABookUSER(){
+        // Crear un libro y un usuario
+        Book book = new Book("El señor de los anillos", "J. R. R. Tolkien.", "4544");
+        User user = new User("1234", "Juan Cancelado");
 
-    
+        // Añadir el libro a la biblioteca
+        library.addBook(book);
+        // Añadir el usuario a la biblioteca
+        library.addUser(user);
+
+        // Realizar un préstamo
+        Loan loan = library.loanABook("1234", "4544");
+
+        assertEquals(user, loan.getUser());
+    }
+
+    @Test
+    public void testLoanABook(){
+        // Crear un libro y un usuario
+        Book book = new Book("El señor de los anillos", "J. R. R. Tolkien.", "4544");
+        User user = new User("1234", "Juan Cancelado");
+
+        // Añadir el libro a la biblioteca
+        library.addBook(book);
+        // Añadir el usuario a la biblioteca
+        library.addUser(user);
+
+        // Realizar un préstamo
+        Loan loan = library.loanABook("1234", "4544");
+
+        assertEquals(book, loan.getBook());
+    }
+
+    @Test
+    public void testLoanABookActive(){
+        // Crear un libro y un usuario
+        Book book = new Book("El señor de los anillos", "J. R. R. Tolkien.", "4544");
+        User user = new User("1234", "Juan Cancelado");
+
+        // Añadir el libro a la biblioteca
+        library.addBook(book);
+        // Añadir el usuario a la biblioteca
+        library.addUser(user);
+
+        // Realizar un préstamo
+        Loan loan = library.loanABook("1234", "4544");
+
+        assertEquals(LoanStatus.ACTIVE, loan.getStatus());
+    }
 }
