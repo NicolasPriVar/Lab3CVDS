@@ -37,21 +37,19 @@ public class Library {
      * @return true if the book was stored false otherwise.
      */
     public boolean addBook(Book book) {
-<span class="pc bpc" id="L40" title="1 of 2 branches missed.">        if (book == null) {</span>
-<span class="nc" id="L41">        return false;</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if (book == null) {</span>
+<span class="fc" id="L41">        return false;</span>
         }
 
-        // Itera sobre el HashMap para verificar si ya existe un libro con el mismo ISBN
+        
 <span class="fc bfc" id="L45" title="All 2 branches covered.">        for (Book existingBook : books.keySet()) {</span>
 <span class="fc bfc" id="L46" title="All 2 branches covered.">            if (existingBook.getIsbn().equals(book.getIsbn())) {</span>
-                // Si existe un libro con el mismo ISBN, devuelve false
-<span class="fc" id="L48">                return false;</span>
+<span class="fc" id="L47">                return false;</span>
             }
-<span class="fc" id="L50">        }</span>
+<span class="fc" id="L49">        }</span>
 
-        // Si no existe un libro con el mismo ISBN, lo añade al HashMap con una cantidad de 1
-<span class="fc" id="L53">        books.put(book, 1);</span>
-<span class="fc" id="L54">        return true;</span>
+<span class="fc" id="L51">        books.put(book, 1);</span>
+<span class="fc" id="L52">        return true;</span>
     }
 
     /**
@@ -68,51 +66,43 @@ public class Library {
      * @return The new created loan.
      */
     public Loan loanABook(String userId, String isbn) {
-    // Verificar si el libro existe en la biblioteca
-<span class="fc" id="L72">    Book bookToLoan = null;</span>
-<span class="fc bfc" id="L73" title="All 2 branches covered.">    for (Book book : books.keySet()) {</span>
-<span class="fc bfc" id="L74" title="All 2 branches covered.">        if (book.getIsbn().equals(isbn)) {</span>
-<span class="fc" id="L75">            bookToLoan = book;</span>
-<span class="fc" id="L76">            break;</span>
+<span class="fc" id="L69">    Book bookToLoan = null;</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">    for (Book book : books.keySet()) {</span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        if (book.getIsbn().equals(isbn)) {</span>
+<span class="fc" id="L72">            bookToLoan = book;</span>
+<span class="fc" id="L73">            break;</span>
         }
-<span class="fc" id="L78">    }</span>
-<span class="fc bfc" id="L79" title="All 2 branches covered.">    if (bookToLoan == null) {</span>
-<span class="fc" id="L80">        throw new IllegalArgumentException(&quot;Book with ISBN &quot; + isbn + &quot; does not exist.&quot;);</span>
+<span class="fc" id="L75">    }</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">    if (bookToLoan == null) {</span>
+<span class="fc" id="L77">        throw new IllegalArgumentException(&quot;Book with ISBN &quot; + isbn + &quot; does not exist.&quot;);</span>
     }
 
-    // Verificar si hay copias disponibles del libro
-<span class="fc bfc" id="L84" title="All 2 branches covered.">    if (books.get(bookToLoan) &lt;= 0) {</span>
-<span class="fc" id="L85">        throw new IllegalArgumentException(&quot;No copies of book with ISBN &quot; + isbn + &quot; are available.&quot;);</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">    if (books.get(bookToLoan) &lt;= 0) {</span>
+<span class="nc" id="L81">        throw new IllegalArgumentException(&quot;No copies of book with ISBN &quot; + isbn + &quot; are available.&quot;);</span>
     }
 
-    // Verificar si el usuario existe
-<span class="fc" id="L89">    User user = null;</span>
-<span class="fc bfc" id="L90" title="All 2 branches covered.">    for (User u : users) {</span>
-<span class="fc bfc" id="L91" title="All 2 branches covered.">        if (u.getId().equals(userId)) {</span>
-<span class="fc" id="L92">            user = u;</span>
-<span class="fc" id="L93">            break;</span>
+<span class="fc" id="L84">    User user = null;</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">    for (User u : users) {</span>
+<span class="pc bpc" id="L86" title="1 of 2 branches missed.">        if (u.getId().equals(userId)) {</span>
+<span class="fc" id="L87">            user = u;</span>
+<span class="fc" id="L88">            break;</span>
         }
-<span class="fc" id="L95">    }</span>
-<span class="fc bfc" id="L96" title="All 2 branches covered.">    if (user == null) {</span>
-<span class="fc" id="L97">        throw new IllegalArgumentException(&quot;User with ID &quot; + userId + &quot; does not exist.&quot;);</span>
-    }
+<span class="nc" id="L90">    }</span>
+    
 
-    // Verificar si el usuario ya tiene un préstamo activo para el mismo libro
-<span class="pc bpc" id="L101" title="1 of 2 branches missed.">    for (Loan loan : loans) {</span>
-<span class="nc bnc" id="L102" title="All 4 branches missed.">        if (loan.getUser().getId().equals(userId) &amp;&amp; loan.getBook().getIsbn().equals(isbn) &amp;&amp;</span>
-<span class="nc bnc" id="L103" title="All 2 branches missed.">            loan.getStatus() == LoanStatus.ACTIVE) {</span>
-<span class="nc" id="L104">            throw new IllegalArgumentException(&quot;User with ID &quot; + userId + &quot; already has an active loan for book with ISBN &quot; + isbn);</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">    for (Loan loan : loans) {</span>
+<span class="nc bnc" id="L94" title="All 4 branches missed.">        if (loan.getUser().getId().equals(userId) &amp;&amp; loan.getBook().getIsbn().equals(isbn) &amp;&amp;</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            loan.getStatus() == LoanStatus.ACTIVE) {</span>
+<span class="nc" id="L96">            throw new IllegalArgumentException(&quot;User with ID &quot; + userId + &quot; already has an active loan for book with ISBN &quot; + isbn);</span>
         }
-<span class="nc" id="L106">    }</span>
+<span class="nc" id="L98">    }</span>
 
-    // Crear el nuevo préstamo
-<span class="fc" id="L109">    Loan newLoan = new Loan(user, bookToLoan, LocalDateTime.now(), LoanStatus.ACTIVE);</span>
-<span class="fc" id="L110">    loans.add(newLoan);</span>
+<span class="fc" id="L100">    Loan newLoan = new Loan(user, bookToLoan, LocalDateTime.now(), LoanStatus.ACTIVE);</span>
+<span class="fc" id="L101">    loans.add(newLoan);</span>
 
-    // Disminuir la cantidad de libros disponibles
-<span class="fc" id="L113">    books.put(bookToLoan, books.get(bookToLoan) - 1);</span>
+<span class="fc" id="L103">    books.put(bookToLoan, books.get(bookToLoan) - 1);</span>
 
-<span class="fc" id="L115">    return newLoan;</span>
+<span class="fc" id="L105">    return newLoan;</span>
 }
 
 
@@ -129,16 +119,27 @@ public class Library {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-<span class="nc" id="L133">        return null;</span>
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">        if (!loans.contains(loan)){</span>
+<span class="nc" id="L123">            throw new IllegalArgumentException (&quot;Loan doesn't exist.&quot;);</span>
+        }
+<span class="fc" id="L125">        loan.setStatus(LoanStatus.RETURNED);</span>
+<span class="fc" id="L126">        loan.setReturnDate(LocalDateTime.now());</span>
+<span class="fc" id="L127">        Book book = loan.getBook();</span>
+<span class="fc" id="L128">        books.put(book, books.get(book)+1);                          </span>
+<span class="fc" id="L129">        return loan;</span>
     }
 
     public boolean addUser(User user) {
-<span class="fc" id="L137">        return users.add(user);</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        for (User existingUser : users) {</span>
+<span class="fc bfc" id="L134" title="All 2 branches covered.">            if (existingUser.getId().equals(user.getId())) {</span>
+<span class="fc" id="L135">                return false; </span>
+            }
+<span class="fc" id="L137">        }</span>
+<span class="fc" id="L138">        return users.add(user);</span>
     }
     
     public Map&lt;Book, Integer&gt; getBooks() {
-<span class="fc" id="L141">    return new HashMap&lt;&gt;(books);  // Retorna una copia del mapa para evitar modificaciones externas.</span>
+<span class="fc" id="L142">    return new HashMap&lt;&gt;(books); </span>
     }
 
 
