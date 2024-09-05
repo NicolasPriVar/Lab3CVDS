@@ -171,9 +171,21 @@ public class LibraryTest{
         
         assertThrows(IllegalArgumentException.class, () -> {
             library.loanABook(user1.getId(), book.getIsbn());
-        }, "No copies of book with ISBN ISBN1 are available.");
+        }, "Book with ISBN ISBN1 does not exist.");
     }
     
+    @Test
+    public void testLoanSameIsbnId(){
+        Library library = new Library();
+        User user1 = new User("User1", "John Doe");
+        Book book = new Book("ISBN1", "Title1", "Author1");
+        library.addUser(user1);
+        library.addBook(book);
+        Loan loanABook = library.loanABook(user1.getId(), book.getIsbn());
+        assertThrows(IllegalArgumentException.class, () -> {
+            library.loanABook(user1.getId(), book.getIsbn());
+        }, "User with ID User1 already has an active loan for book with ISBN Author1");
+    }
     
     // Otros casos de prueba
 
@@ -206,6 +218,20 @@ public class LibraryTest{
         assertNotNull(returnedLoan.getReturnDate());
         assertEquals(1, library.getBooks().get(book1));
     }
+
+    @Test
+    public void testReturnLoanDoesntExistent() {
+        Library library = new Library();
+        User user1 = new User("User1", "John Doe");
+        Book book = new Book("ISBN1", "Title1", "Author1");
+        Loan loan = new Loan(user1, book, LocalDateTime.now(), LoanStatus.ACTIVE);
+
+        // Intentar devolver un préstamo no registrado en la lista de préstamos
+        assertThrows(IllegalArgumentException.class, () -> {
+            library.returnLoan(loan);
+        }, "Loan doesn't exist.");
+    }
+
 
     public void testReturnNonExistentLoan() {
         Library library = new Library();

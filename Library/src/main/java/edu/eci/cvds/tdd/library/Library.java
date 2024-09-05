@@ -77,10 +77,6 @@ public class Library {
             throw new IllegalArgumentException("Book with ISBN " + isbn + " does not exist.");
         }
 
-        if (books.get(bookToLoan) <= 0) {
-            throw new IllegalArgumentException("No copies of book with ISBN " + isbn + " are available.");
-        }
-
         User user = null;
         for (User u : users) {
             if (u.getId().equals(userId)) {
