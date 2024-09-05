@@ -1,25 +1,61 @@
-Integrantes: 
-Juan Esteban Cancelado Sanchéz
-Nicolás Prieto Vargas
+# Proyecto de Pruebas de Biblioteca
 
-Se agregaron las carpetas library, book, loan y user tanto a la carpeta principal como a la carpeta de test.
+## Integrantes
 
-![tree de las carpetas creadas](image-1.png)
+- **Juan Esteban Cancelado Sánchez**
+- **Nicolás Prieto Vargas**
 
-Se hizo la prueba de addBook y se modificó de la mínima manera para que pase la prueba.
+## Estructura del Proyecto
+
+Se han creado las siguientes carpetas en la estructura del proyecto:
+
+- `library`
+- `book`
+- `loan`
+- `user`
+
+Estas carpetas están presentes tanto en la carpeta principal como en la de pruebas (`test`).
+
+![Tree de las carpetas creadas](image-1.png)
+
+## Pruebas y Modificaciones
+
+### Prueba de `addBook`
+
+Se implementó la prueba inicial para el método `addBook`, y se realizó una mínima modificación para que la prueba pasara satisfactoriamente.
+
 ![Prueba mínima](image.png)
 
-Se creó la prueba de crear agregar dos libros con el mismo isbn y no pasó.
-![prueba 2 libros con mismo código](image-2.png)
+### Prueba para Libros con el Mismo ISBN
 
-Ahora se  modifica el método para que esa prueba pase de tal manera que no se puedan crear dos libros con el mismo isbn.
-![modificación de crear dos libros con mismo código](image-3.png)
+Se creó una prueba para verificar que no se puedan agregar dos libros con el mismo ISBN. Esta prueba inicialmente falló.
 
-Ahora se hizo la prueba para poder crear más de un libro sin problema con diferente isbn.
-![creación de más de un libro con diferente isbn](image-4.png)
+![Prueba 2 libros con mismo código](image-2.png)
 
-Ahora se creó la prueba para añadir los usuarios al arreglo.
+Se modificó el método `addBook` para asegurar que no se puedan crear dos libros con el mismo ISBN.
+
+![Modificación para evitar ISBN duplicado](image-3.png)
+
+### Prueba de Creación de Libros con Diferente ISBN
+
+Se verificó que es posible agregar múltiples libros con ISBN diferentes sin problemas.
+
+![Creación de más de un libro con diferente ISBN](image-4.png)
+
+### Prueba de Adición de Usuarios
+
+Se implementó una prueba para agregar usuarios al sistema correctamente.
+
 ![Añadir usuario](image-5.png)
 
-Se agregó en el pom el código dado para crear el archivo que nos da la cobertura total del programa.
+### Integración de Jacoco
+
+Se añadió el código necesario en el archivo `pom.xml` para generar un informe de cobertura del código utilizando Jacoco.
+
 ![Jacoco](image-6.png)
+
+### Resultados Finales
+
+Finalmente, se logró una cobertura de código superior al 80%, con el sistema funcionando correctamente.
+
+![Final](image-7.png)
