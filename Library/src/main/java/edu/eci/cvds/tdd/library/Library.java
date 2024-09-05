@@ -41,15 +41,13 @@ public class Library {
         return false;
         }
 
-        // Itera sobre el HashMap para verificar si ya existe un libro con el mismo ISBN
+        
         for (Book existingBook : books.keySet()) {
             if (existingBook.getIsbn().equals(book.getIsbn())) {
-                // Si existe un libro con el mismo ISBN, devuelve false
                 return false;
             }
         }
 
-        // Si no existe un libro con el mismo ISBN, lo añade al HashMap con una cantidad de 1
         books.put(book, 1);
         return true;
     }
@@ -68,52 +66,40 @@ public class Library {
      * @return The new created loan.
      */
     public Loan loanABook(String userId, String isbn) {
-    // Verificar si el libro existe en la biblioteca
-    Book bookToLoan = null;
-    for (Book book : books.keySet()) {
-        if (book.getIsbn().equals(isbn)) {
-            bookToLoan = book;
-            break;
+        Book bookToLoan = null;
+        for (Book book : books.keySet()) {
+            if (book.getIsbn().equals(isbn)) {
+                bookToLoan = book;
+                break;
+            }
         }
-    }
-    if (bookToLoan == null) {
-        throw new IllegalArgumentException("Book with ISBN " + isbn + " does not exist.");
-    }
-
-    // Verificar si hay copias disponibles del libro
-    if (books.get(bookToLoan) <= 0) {
-        throw new IllegalArgumentException("No copies of book with ISBN " + isbn + " are available.");
-    }
-
-    // Verificar si el usuario existe
-    User user = null;
-    for (User u : users) {
-        if (u.getId().equals(userId)) {
-            user = u;
-            break;
+        if (bookToLoan == null) {
+            throw new IllegalArgumentException("Book with ISBN " + isbn + " does not exist.");
         }
-    }
-    if (user == null) {
-        throw new IllegalArgumentException("User with ID " + userId + " does not exist.");
-    }
 
-    // Verificar si el usuario ya tiene un préstamo activo para el mismo libro
-    for (Loan loan : loans) {
-        if (loan.getUser().getId().equals(userId) && loan.getBook().getIsbn().equals(isbn) &&
-            loan.getStatus() == LoanStatus.ACTIVE) {
-            throw new IllegalArgumentException("User with ID " + userId + " already has an active loan for book with ISBN " + isbn);
+        User user = null;
+        for (User u : users) {
+            if (u.getId().equals(userId)) {
+                user = u;
+                break;
+            }
         }
+        
+
+        for (Loan loan : loans) {
+            if (loan.getUser().getId().equals(userId) && loan.getBook().getIsbn().equals(isbn) &&
+                loan.getStatus() == LoanStatus.ACTIVE) {
+                throw new IllegalArgumentException("User with ID " + userId + " already has an active loan for book with ISBN " + isbn);
+            }
+        }
+
+        Loan newLoan = new Loan(user, bookToLoan, LocalDateTime.now(), LoanStatus.ACTIVE);
+        loans.add(newLoan);
+
+        books.put(bookToLoan, books.get(bookToLoan) - 1);
+
+        return newLoan;
     }
-
-    // Crear el nuevo préstamo
-    Loan newLoan = new Loan(user, bookToLoan, LocalDateTime.now(), LoanStatus.ACTIVE);
-    loans.add(newLoan);
-
-    // Disminuir la cantidad de libros disponibles
-    books.put(bookToLoan, books.get(bookToLoan) - 1);
-
-    return newLoan;
-}
 
 
 
@@ -129,16 +115,27 @@ public class Library {
      * @return the loan with the RETURNED status.
      */
     public Loan returnLoan(Loan loan) {
-        //TODO Implement the login of loan a book to a user based on the UserId and the isbn.
-        return null;
+        if (!loans.contains(loan)){
+            throw new IllegalArgumentException ("Loan doesn't exist.");
+        }
+        loan.setStatus(LoanStatus.RETURNED);
+        loan.setReturnDate(LocalDateTime.now());
+        Book book = loan.getBook();
+        books.put(book, books.get(book)+1);                          
+        return loan;
     }
 
     public boolean addUser(User user) {
+        for (User existingUser : users) {
+            if (existingUser.getId().equals(user.getId())) {
+                return false; 
+            }
+        }
         return users.add(user);
     }
     
     public Map<Book, Integer> getBooks() {
-    return new HashMap<>(books);  // Retorna una copia del mapa para evitar modificaciones externas.
+    return new HashMap<>(books); 
     }
 
 

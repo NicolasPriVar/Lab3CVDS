@@ -58,4 +58,8 @@ Se añadió el código necesario en el archivo `pom.xml` para generar un informe
 
 Finalmente, se logró una cobertura de código superior al 80%, con el sistema funcionando correctamente.
 
+<<<<<<< HEAD
 ![Final](image-7.png)
+=======
+![final](image-7.png)
+>>>>>>> refs/remotes/origin/master
