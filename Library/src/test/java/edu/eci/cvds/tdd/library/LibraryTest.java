@@ -147,21 +147,36 @@ public class LibraryTest{
 
     @Test
     public void testLoanABooksizeBook() {
-    Library library = new Library();
-    
-    User user1 = new User("User1", "John Doe");
-    Book book1 = new Book("ISBN1", "Title1", "Author1");
-    Book book2 = new Book("ISBN2", "Title2", "Author2");
+        Library library = new Library();
+        
+        User user1 = new User("User1", "John Doe");
+        Book book1 = new Book("ISBN1", "Title1", "Author1");
+        Book book2 = new Book("ISBN2", "Title2", "Author2");
 
-    library.addUser(user1);
-    library.addBook(book1);
-    library.addBook(book2);
-    Loan loan = library.loanABook(user1.getId(), book1.getIsbn());
-    assertEquals(2, library.getBooks().size());
+        library.addUser(user1);
+        library.addBook(book1);
+        library.addBook(book2);
+        Loan loan = library.loanABook(user1.getId(), book1.getIsbn());
+        assertEquals(2, library.getBooks().size());
+    }
+
+    @Test
+    public void testnoCopiesToLoan() {
+        Library library = new Library();
+        User user1 = new User("User1", "John Doe");
+        Book book = new Book("ISBN1", "Title1", "Author1");
+        
+        
+        library.addUser(user1);
+        
+        assertThrows(IllegalArgumentException.class, () -> {
+            library.loanABook(user1.getId(), book.getIsbn());
+        }, "No copies of book with ISBN ISBN1 are available.");
+    }
     
     
     // Otros casos de prueba
-}
+
     @Test
     public void testLoanABookADDBook() {
     Library library = new Library();

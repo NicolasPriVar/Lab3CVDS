@@ -66,44 +66,44 @@ public class Library {
      * @return The new created loan.
      */
     public Loan loanABook(String userId, String isbn) {
-    Book bookToLoan = null;
-    for (Book book : books.keySet()) {
-        if (book.getIsbn().equals(isbn)) {
-            bookToLoan = book;
-            break;
+        Book bookToLoan = null;
+        for (Book book : books.keySet()) {
+            if (book.getIsbn().equals(isbn)) {
+                bookToLoan = book;
+                break;
+            }
         }
-    }
-    if (bookToLoan == null) {
-        throw new IllegalArgumentException("Book with ISBN " + isbn + " does not exist.");
-    }
-
-    if (books.get(bookToLoan) <= 0) {
-        throw new IllegalArgumentException("No copies of book with ISBN " + isbn + " are available.");
-    }
-
-    User user = null;
-    for (User u : users) {
-        if (u.getId().equals(userId)) {
-            user = u;
-            break;
+        if (bookToLoan == null) {
+            throw new IllegalArgumentException("Book with ISBN " + isbn + " does not exist.");
         }
-    }
-    
 
-    for (Loan loan : loans) {
-        if (loan.getUser().getId().equals(userId) && loan.getBook().getIsbn().equals(isbn) &&
-            loan.getStatus() == LoanStatus.ACTIVE) {
-            throw new IllegalArgumentException("User with ID " + userId + " already has an active loan for book with ISBN " + isbn);
+        if (books.get(bookToLoan) <= 0) {
+            throw new IllegalArgumentException("No copies of book with ISBN " + isbn + " are available.");
         }
+
+        User user = null;
+        for (User u : users) {
+            if (u.getId().equals(userId)) {
+                user = u;
+                break;
+            }
+        }
+        
+
+        for (Loan loan : loans) {
+            if (loan.getUser().getId().equals(userId) && loan.getBook().getIsbn().equals(isbn) &&
+                loan.getStatus() == LoanStatus.ACTIVE) {
+                throw new IllegalArgumentException("User with ID " + userId + " already has an active loan for book with ISBN " + isbn);
+            }
+        }
+
+        Loan newLoan = new Loan(user, bookToLoan, LocalDateTime.now(), LoanStatus.ACTIVE);
+        loans.add(newLoan);
+
+        books.put(bookToLoan, books.get(bookToLoan) - 1);
+
+        return newLoan;
     }
-
-    Loan newLoan = new Loan(user, bookToLoan, LocalDateTime.now(), LoanStatus.ACTIVE);
-    loans.add(newLoan);
-
-    books.put(bookToLoan, books.get(bookToLoan) - 1);
-
-    return newLoan;
-}
 
 
 
